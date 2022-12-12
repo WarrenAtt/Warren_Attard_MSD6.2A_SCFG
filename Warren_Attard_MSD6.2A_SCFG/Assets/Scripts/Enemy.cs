@@ -6,13 +6,17 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    protected List<GameObject> NPCs;
+    protected List<GameObject> Enemies;
+
     private List<GameObject> _waypoints;
-    private List<GameObject> _npcs;
-    private List<GameObject> _enemies;
     private NavMeshAgent _agent;
     private Animator _animator;
+
     private Vector3 destination;
     private Vector3 playerPos;
+
+    private float health;
     private bool isAlerted = false;
 
     private void Awake()
@@ -20,8 +24,8 @@ public class Enemy : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         _waypoints = new List<GameObject>();
-        _npcs = new List<GameObject>();
-        _enemies = new List<GameObject>();
+        NPCs = new List<GameObject>();
+        Enemies = new List<GameObject>();
 
         foreach (GameObject wp in GameObject.FindGameObjectsWithTag("Waypoint"))
         {
@@ -30,20 +34,44 @@ public class Enemy : MonoBehaviour
 
         foreach (GameObject npc in GameObject.FindGameObjectsWithTag("NPC"))
         {
-            _npcs.Add(npc);
+            NPCs.Add(npc);
         }
 
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            _enemies.Add(enemy);
+            Enemies.Add(enemy);
         }
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (gameObject.tag == "NPC")
+        {
+            health = 20;
+        }
+
+        if(gameObject.tag == "Enemy")
+        {
+            switch (GameData.SelectedDifficuly)
+            {
+                case GameData.Difficuly.Easy:
+                    health = 50;
+                    break;
+                case GameData.Difficuly.Normal:
+                    health = 100;
+                    break;
+                case GameData.Difficuly.Hard:
+                    health = 200;
+                    break;
+            }
+        }
+
+        foreach (GameObject enemy in Enemies)
+        {
+            enemy.GetComponent<NavMeshAgent>().speed = UnityEngine.Random.RandomRange(2.5f, 4.5f);
+        }
+
         MoveToWaypoint();
     }
 
@@ -52,14 +80,48 @@ public class Enemy : MonoBehaviour
     {
         playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-        if (_agent.remainingDistance <= 0.5f && _agent.isStopped == false)
+        if (health <= 0)
+        {
+            List<GameObject> tempObj = new List<GameObject>();
+
+            if (gameObject.tag == "NPC")
+            {
+                foreach(GameObject enemy in NPCs)
+                {
+                    if (enemy.GetHashCode() != gameObject.GetHashCode())
+                    {
+                        tempObj.Add(enemy);
+                    }
+
+                    enemy.GetComponent<Enemy>().NPCs = tempObj;
+                }
+            }
+
+            if (gameObject.tag == "Enemy")
+            {
+                foreach (GameObject enemy in Enemies)
+                {
+                    if (enemy.GetHashCode() != gameObject.GetHashCode())
+                    {
+                        tempObj.Add(enemy);
+                    }
+
+                    enemy.GetComponent<Enemy>().Enemies = tempObj;
+                }
+            }
+
+            Destroy(_agent.gameObject);
+        }
+
+        if (_agent.isOnNavMesh && _agent.remainingDistance <= 0.5f && !_agent.isStopped)
         {
             _agent.isStopped = true;
             _animator.SetBool("isWalking", false);
             StartCoroutine(WaitTimer(2, MoveToWaypoint));
         }
+        
 
-        if(isAlerted == true)
+        if(isAlerted && _agent.isOnNavMesh)
         {
             MoveToWaypoint();
 
@@ -67,6 +129,47 @@ public class Enemy : MonoBehaviour
             {
                 _agent.isStopped = true;
                 _animator.SetBool("isWalking", false);
+            }
+        }
+
+        if(GameData.IsPlayerRunning || isAlerted)
+        {
+            foreach (GameObject enemy in Enemies)
+            {
+                if(enemy != null)
+                {
+                    enemy.GetComponentInChildren<Light>().spotAngle = 100;
+                    enemy.GetComponentInChildren<Light>().GetComponent<SphereCollider>().radius = 2;
+                }
+            }
+
+            foreach (GameObject enemy in NPCs)
+            {
+                if (enemy != null)
+                {
+                    enemy.GetComponentInChildren<Light>().spotAngle = 100;
+                    enemy.GetComponentInChildren<Light>().GetComponent<SphereCollider>().radius = 2;
+                }
+            }
+        }
+        else
+        {
+            foreach (GameObject enemy in Enemies)
+            {
+                if (enemy != null)
+                {
+                    enemy.GetComponentInChildren<Light>().spotAngle = 70;
+                    enemy.GetComponentInChildren<Light>().GetComponent<SphereCollider>().radius = 1;
+                }
+            }
+
+            foreach (GameObject enemy in NPCs)
+            {
+                if (enemy != null)
+                {
+                    enemy.GetComponentInChildren<Light>().spotAngle = 70;
+                    enemy.GetComponentInChildren<Light>().GetComponent<SphereCollider>().radius = 1;
+                }
             }
         }
     }
@@ -83,17 +186,23 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (isAlerted == false && _agent.remainingDistance <= 2f)
+        foreach (GameObject enemy in NPCs)
+        {
+            enemy.GetComponent<NavMeshAgent>().speed = UnityEngine.Random.RandomRange(2.5f, 4.5f);
+        }
+
+
+        if (!isAlerted && _agent.remainingDistance <= 2f)
         {
             destination = tempWaypoints[UnityEngine.Random.Range(0, tempWaypoints.Count)].transform.position;
         }
 
-        if (isAlerted == true)
+        if (isAlerted)
         {
             destination = GameObject.Find("SafeArea").transform.position;
         }
 
-        if(_agent.tag == "NPC")
+        if(_agent.tag == "NPC" && _agent != null && _agent.isOnNavMesh)
         {
             _animator.SetBool("isWalking", true);
             _agent.isStopped = false;
@@ -101,7 +210,7 @@ public class Enemy : MonoBehaviour
             _agent.SetDestination(destination);
         }
 
-        if (_agent.tag == "Enemy" && isAlerted == true)
+        if (_agent.tag == "Enemy" && isAlerted && _agent.isOnNavMesh)
         {
             _animator.SetBool("isTalking", false);
             _animator.SetBool("isWalking", true);
@@ -119,21 +228,35 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (gameObject.GetComponentInChildren<Light>().name == "EnemyHitbox" && other.gameObject.tag == "Player" && isAlerted == false)
+        if (gameObject.GetComponentInChildren<Light>().name == "EnemyHitbox" && other.gameObject.tag == "Player" && !isAlerted)
         {
-            for (int i = 0; i < _enemies.Count; i++)
+            foreach (GameObject enemy in NPCs)
             {
-                _enemies[i].GetComponent<Enemy>().isAlerted = true;
+                if (enemy != null)
+                {
+                    enemy.GetComponent<Enemy>().isAlerted = true;
+                }
             }
 
-            for (int i = 0; i < _npcs.Count; i++)
+            foreach (GameObject enemy in Enemies)
             {
-                _npcs[i].GetComponent<Enemy>().isAlerted = true;
+                if (enemy != null)
+                {
+                    enemy.GetComponent<Enemy>().isAlerted = true;
+                }
             }
 
             MoveToWaypoint();
 
             print("Guards are Alerted!");
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Bullet")
+        {
+            health -= 10f;
         }
     }
 }

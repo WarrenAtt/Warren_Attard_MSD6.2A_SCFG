@@ -5,7 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    public bool isAlerted = false;
+
+    private void Awake()
+    {
+        GameData.SelectedDifficuly = GameData.Difficuly.Easy;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -16,11 +20,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    public void PlayerSpotted()
-    {
-        isAlerted = true;
     }
 }

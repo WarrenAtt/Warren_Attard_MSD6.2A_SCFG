@@ -762,14 +762,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3867162344360625059}
-  m_LocalRotation: {x: 0.39869332, y: -0, z: -0, w: 0.91708434}
-  m_LocalPosition: {x: 0, y: 1.726, z: 0.0000000950914}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 2, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4662026953133868333}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 46.993, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!108 &1995696425693910877
 Light:
   m_ObjectHideFlags: 0
@@ -783,9 +783,9 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 78.3
-  m_InnerSpotAngle: 21.80208
+  m_Range: 50
+  m_SpotAngle: 70
+  m_InnerSpotAngle: 7
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -844,7 +844,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Center: {x: 0, y: 0.25, z: 1.65}
+  m_Center: {x: 0, y: 0.25, z: 1.2}
 --- !u!1 &4163698106765058426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,7 +1350,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5474416153405628311}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
   m_Height: 2
@@ -1368,6 +1368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NPCs: []
+  Enemies: []
 --- !u!195 &8199597147791160353
 NavMeshAgent:
   m_ObjectHideFlags: 0
