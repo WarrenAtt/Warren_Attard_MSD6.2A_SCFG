@@ -19,6 +19,7 @@ TagManager:
   - NPC
   - Enemy
   - Waypoint
+  - Bullet
   layers:
   - Default
   - TransparentFX
