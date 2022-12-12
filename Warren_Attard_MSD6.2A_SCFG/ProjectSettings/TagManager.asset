@@ -16,6 +16,9 @@ TagManager:
   - Wood (Static)
   - Dirt (Static)
   - Wood
+  - NPC
+  - Enemy
+  - Waypoint
   layers:
   - Default
   - TransparentFX
