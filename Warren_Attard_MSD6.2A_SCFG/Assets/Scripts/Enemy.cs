@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
 
         foreach (GameObject enemy in Enemies)
         {
-            enemy.GetComponent<NavMeshAgent>().speed = UnityEngine.Random.RandomRange(2.5f, 4.5f);
+            enemy.GetComponent<NavMeshAgent>().speed = UnityEngine.Random.Range(2.5f, 4.5f);
         }
 
         MoveToWaypoint();
@@ -188,7 +188,7 @@ public class Enemy : MonoBehaviour
 
         foreach (GameObject enemy in NPCs)
         {
-            enemy.GetComponent<NavMeshAgent>().speed = UnityEngine.Random.RandomRange(2.5f, 4.5f);
+            enemy.GetComponent<NavMeshAgent>().speed = UnityEngine.Random.Range(2.5f, 4.5f);
         }
 
 

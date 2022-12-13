@@ -20,6 +20,7 @@ TagManager:
   - Enemy
   - Waypoint
   - Bullet
+  - Key
   layers:
   - Default
   - TransparentFX
