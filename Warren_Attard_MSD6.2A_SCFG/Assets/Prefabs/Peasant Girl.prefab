@@ -1368,8 +1368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCs: []
-  Enemies: []
 --- !u!195 &8199597147791160353
 NavMeshAgent:
   m_ObjectHideFlags: 0

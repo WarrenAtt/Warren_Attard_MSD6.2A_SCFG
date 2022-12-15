@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
-{ 
-
+{
+    [SerializeField]
+    public float health = 100f;
+    private float maxHealth;
+    private Image HealthBar;
     public float timer = 3;
+
     private List<GameObject> tempItems = new List<GameObject>();
     public List<GameObject> Items = new List<GameObject>();
     public GameObject keyUI; 
@@ -14,7 +19,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        maxHealth = health;
+        HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -55,6 +61,13 @@ public class Player : MonoBehaviour
                 }
             }
         }
+
+        HealthBar.fillAmount = health / maxHealth;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -72,6 +85,14 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Key")
         {
             tempItems.Remove(other.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.GetComponentInChildren<Light>() && collision.gameObject.tag == "Enemy")
+        {
+            health -= 10f;
         }
     }
 }
