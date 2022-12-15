@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 1995696425693910877}
   - component: {fileID: 4842453403126844820}
   m_Layer: 0
-  m_Name: EnemyHitbox
+  m_Name: NPCHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -14,13 +15,17 @@ public class Player : MonoBehaviour
 
     private List<GameObject> tempItems = new List<GameObject>();
     public List<GameObject> Items = new List<GameObject>();
-    public GameObject keyUI; 
+    public GameObject key, keyUI;
+    private GameObject door; 
 
     // Start is called before the first frame update
     void Start()
     {
         maxHealth = health;
         HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
+
+        key = GameObject.Find("Key");
+        door = GameObject.Find("Door");
     }
 
     // Update is called once per frame
@@ -73,16 +78,32 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Add the item into a temporary List
-        if(other.gameObject.tag == "Key")
+        if(other.gameObject.name.Contains(key.gameObject.name))
         {
             tempItems.Add(other.gameObject);
+        }
+
+        if (other.gameObject.name == "EnemyHitbox")
+        {
+            switch (GameData.SelectedDifficuly)
+            {
+                case GameData.Difficuly.Easy:
+                    health -= 10f;
+                    break;
+                case GameData.Difficuly.Normal:
+                    health -= 30;
+                    break;
+                case GameData.Difficuly.Hard:
+                    health -= 50;
+                    break;
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         //Remove the item into a temporary List
-        if (other.gameObject.tag == "Key")
+        if (other.gameObject.name.Contains(key.gameObject.name))
         {
             tempItems.Remove(other.gameObject);
         }
@@ -90,9 +111,17 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.GetComponentInChildren<Light>() && collision.gameObject.tag == "Enemy")
+        //Player will go to next level or complete game 
+        if (collision.gameObject == door.gameObject && Items.Contains(key))
         {
-            health -= 10f;
+            if (SceneManager.GetActiveScene().name == "Level-01")
+            {
+                SceneManager.LoadScene("Level-02");
+            }
+            else
+            {
+                SceneManager.LoadScene("Victory");
+            }
         }
     }
 }

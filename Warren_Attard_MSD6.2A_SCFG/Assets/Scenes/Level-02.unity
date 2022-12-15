@@ -5006,6 +5006,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1594666050871757471, guid: 1da44079edaa04689863630772b412d8,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthBar
+      objectReference: {fileID: 0}
     - target: {fileID: 7143732827395780527, guid: 1da44079edaa04689863630772b412d8,
         type: 3}
       propertyPath: m_RootOrder
@@ -6133,7 +6138,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137186605}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &1137186607
 Behaviour:
   m_ObjectHideFlags: 0

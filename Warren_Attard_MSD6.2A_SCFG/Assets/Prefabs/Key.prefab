@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1645546337203814704}
   - component: {fileID: 3317479702126609191}
   m_Layer: 0
-  m_Name: rust_key
+  m_Name: Key
   m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +107,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3115277346347382153}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6961e8c493b4d4b80ac087bd08cd82ca, type: 2}
   m_CullingMode: 0
