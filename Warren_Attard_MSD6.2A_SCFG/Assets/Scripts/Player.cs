@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
 
     private List<GameObject> tempItems = new List<GameObject>();
     public List<GameObject> Items = new List<GameObject>();
-    public GameObject key, keyUI;
-    private GameObject door; 
+    public GameObject keyUI;
+    private GameObject door, key; 
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
 
         key = GameObject.Find("Key");
-        door = GameObject.Find("Door");
+        door = GameObject.Find("EscapeDoor");
     }
 
     // Update is called once per frame
@@ -118,7 +118,11 @@ public class Player : MonoBehaviour
             {
                 SceneManager.LoadScene("Level-02");
             }
-            else
+            else if (SceneManager.GetActiveScene().name == "Level-02")
+            {
+                SceneManager.LoadScene("Level-03");
+            }
+            else if (SceneManager.GetActiveScene().name == "Level-03")
             {
                 SceneManager.LoadScene("Victory");
             }

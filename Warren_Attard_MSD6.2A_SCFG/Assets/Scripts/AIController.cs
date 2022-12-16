@@ -239,6 +239,11 @@ public class AIController : MonoBehaviour
         }
     }
 
+    public void ReduceHealth()
+    {
+        health -= 10f;
+    }
+
     //Simple timer method which allows the pause in the code, can start another method.
     private IEnumerator WaitTimer(float time, Action callback)
     {
@@ -268,15 +273,6 @@ public class AIController : MonoBehaviour
             }
 
             MoveToWaypoint();
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Reduce Health on collision with bullet
-        if(collision.gameObject.tag == "Bullet")
-        {
-            health -= 10f;
         }
     }
 }

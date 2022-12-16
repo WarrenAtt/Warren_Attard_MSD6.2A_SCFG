@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 5169851853513918895}
   - component: {fileID: 3868131854035932299}
   m_Layer: 0
-  m_Name: EnemyHitbox
+  m_Name: NPCHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1044,7 +1044,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 1
+  m_Intensity: 15
   m_Range: 50
   m_SpotAngle: 70
   m_InnerSpotAngle: 7
