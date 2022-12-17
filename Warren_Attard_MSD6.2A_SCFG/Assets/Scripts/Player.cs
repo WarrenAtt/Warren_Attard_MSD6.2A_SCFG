@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,21 +9,24 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    public float health = 100f;
+    public float health;
     private float maxHealth;
     private Image HealthBar;
-    public float timer = 3;
+    public GameObject keyUI;
+    private TextMeshProUGUI scoreUI;
+    private GameObject door, key;
 
+    public float timer = 3;
     private List<GameObject> tempItems = new List<GameObject>();
     public List<GameObject> Items = new List<GameObject>();
-    public GameObject keyUI;
-    private GameObject door, key; 
 
     // Start is called before the first frame update
     void Start()
     {
+        health = GameData.Health;
         maxHealth = health;
         HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
+        scoreUI = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
 
         key = GameObject.Find("Key");
         door = GameObject.Find("EscapeDoor");
@@ -69,6 +73,8 @@ public class Player : MonoBehaviour
 
         HealthBar.fillAmount = health / maxHealth;
 
+        scoreUI.text = "Score: " + GameData.Score.ToString();
+
         if (health <= 0)
         {
             Destroy(gameObject);
@@ -114,6 +120,8 @@ public class Player : MonoBehaviour
         //Player will go to next level or complete game 
         if (collision.gameObject == door.gameObject && Items.Contains(key))
         {
+            GameData.Health = health;
+
             if (SceneManager.GetActiveScene().name == "Level-01")
             {
                 SceneManager.LoadScene("Level-02");

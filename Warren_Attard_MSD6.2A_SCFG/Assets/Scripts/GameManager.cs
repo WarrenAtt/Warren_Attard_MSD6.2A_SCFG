@@ -7,17 +7,28 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    public AudioSource BackgroundMusic;
 
     private GameObject _player;
 
     private void Awake()
     {
+        if (GameManager.instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
         SelectDifficulty(GameData.Difficuly.Normal);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        BackgroundMusic.Play();
         //SpawnKey();
         _player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -25,7 +36,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_player == null)
+        if(_player != null && _player.GetComponent<Player>().health <= 0)
         {
             GameOver();
         }
@@ -56,6 +67,8 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("StartMenu");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         return;
     }
 

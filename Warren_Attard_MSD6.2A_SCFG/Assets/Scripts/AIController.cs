@@ -125,6 +125,9 @@ public class AIController : MonoBehaviour
                 }
             }
 
+            //Add Score
+            GameData.Score += 1;
+
             //Destroy Agent
             Destroy(_agent.gameObject);
         }

@@ -12,6 +12,22 @@ public static class GameData
         get { return isPlayerRunning; }
     }
 
+    private static float health = 100f;
+
+    public static float Health
+    {
+        set { health = value; }
+        get { return health; }
+    }
+
+    private static float score = 0;
+
+    public static float Score
+    {
+        set { score = value; }
+        get { return score; }
+    }
+
     public enum Difficuly
     {
         Easy,
