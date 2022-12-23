@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public GameObject keyUI;
     private TextMeshProUGUI scoreUI;
     private GameObject door, key;
+    public GameObject ObjectiveText;
 
     public float timer = 3;
     private List<GameObject> tempItems = new List<GameObject>();
@@ -23,13 +24,15 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = GameData.Health;
+        health = GameData.PlayerHealth;
         maxHealth = health;
         HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         scoreUI = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
 
         key = GameObject.Find("Key");
         door = GameObject.Find("EscapeDoor");
+
+        ObjectiveText.GetComponent<TextMeshProUGUI>().text = "Find the Key to unlock the Escape Door!";
     }
 
     // Update is called once per frame
@@ -73,11 +76,17 @@ public class Player : MonoBehaviour
 
         HealthBar.fillAmount = health / maxHealth;
 
+        if (Items.Contains(key))
+        {
+            ObjectiveText.GetComponent<TextMeshProUGUI>().text = "Find the escape door!";
+        }
+
         scoreUI.text = "Score: " + GameData.Score.ToString();
 
         if (health <= 0)
         {
             Destroy(gameObject);
+            GameManager.instance.GameOver();
         }
     }
 
@@ -91,6 +100,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.name == "EnemyHitbox")
         {
+
             switch (GameData.SelectedDifficuly)
             {
                 case GameData.Difficuly.Easy:
@@ -120,7 +130,7 @@ public class Player : MonoBehaviour
         //Player will go to next level or complete game 
         if (collision.gameObject == door.gameObject && Items.Contains(key))
         {
-            GameData.Health = health;
+            GameData.PlayerHealth = health;
 
             if (SceneManager.GetActiveScene().name == "Level-01")
             {
@@ -132,7 +142,7 @@ public class Player : MonoBehaviour
             }
             else if (SceneManager.GetActiveScene().name == "Level-03")
             {
-                SceneManager.LoadScene("Victory");
+                GameManager.instance.Victory();
             }
         }
     }

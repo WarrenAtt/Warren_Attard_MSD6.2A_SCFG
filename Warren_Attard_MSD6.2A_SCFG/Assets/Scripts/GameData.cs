@@ -12,12 +12,12 @@ public static class GameData
         get { return isPlayerRunning; }
     }
 
-    private static float health = 100f;
+    private static float playerHealth = 100f;
 
-    public static float Health
+    public static float PlayerHealth
     {
-        set { health = value; }
-        get { return health; }
+        set { playerHealth = value; }
+        get { return playerHealth; }
     }
 
     private static float score = 0;

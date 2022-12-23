@@ -16,6 +16,7 @@ public class AIController : MonoBehaviour
     private Vector3 playerPos;
 
     //Agent states
+    public ParticleSystem DeathEffect;
     private float health;
     private bool isAlerted = false;
     private List<GameObject> _waypoints;
@@ -58,6 +59,8 @@ public class AIController : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("Player");
 
+        
+
         //Setting the health for normal Agent
         if (gameObject.tag == "NPC")
         {
@@ -80,6 +83,7 @@ public class AIController : MonoBehaviour
                     break;
             }
         }
+
         AIProperties(1);
 
         MoveToWaypoint();
@@ -101,14 +105,15 @@ public class AIController : MonoBehaviour
 
             if (gameObject.tag == "NPC")
             {
-                foreach(GameObject enemy in NPCs)
+                foreach (GameObject enemy in NPCs)
                 {
                     if (enemy.GetHashCode() != gameObject.GetHashCode())
                     {
                         tempObj.Add(enemy);
                     }
 
-                    enemy.GetComponent<AIController>().NPCs = tempObj;
+                    if (enemy != null)
+                        enemy.GetComponent<AIController>().NPCs = tempObj;
                 }
             }
 
@@ -121,15 +126,16 @@ public class AIController : MonoBehaviour
                         tempObj.Add(enemy);
                     }
 
-                    enemy.GetComponent<AIController>().Enemies = tempObj;
+                    if (enemy != null)
+                        enemy.GetComponent<AIController>().Enemies = tempObj;
+
                 }
             }
 
-            //Add Score
-            GameData.Score += 1;
 
             //Destroy Agent
-            Destroy(_agent.gameObject);
+            DestroyEnemy();
+
         }
 
         //Agent choosing next destination
@@ -189,6 +195,11 @@ public class AIController : MonoBehaviour
         if (isAlerted)
         {
             destination = GameObject.Find("SafeArea").transform.position;
+
+            if (_agent.tag == "NPC" && _agent.isStopped)
+            {
+                _animator.SetBool("isTerrified", true);
+            }
         }
 
         //Setting normal Agent's Animation and assinging the desitination to Agent
@@ -201,7 +212,7 @@ public class AIController : MonoBehaviour
         }
 
         //Setting enemy Agent's Animation and assinging the desitination to Agent
-        if (_agent.tag == "Enemy" && isAlerted && _agent.isOnNavMesh)
+        if (_agent.tag == "Enemy" && isAlerted && _agent.isOnNavMesh && health > 0)
         {
             _animator.SetBool("isTalking", false);
             _animator.SetBool("isWalking", true);
@@ -252,6 +263,19 @@ public class AIController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         callback();
+    }
+
+    private void DestroyEnemy()
+    {
+        _agent.isStopped = true;
+        _animator.SetBool("isDead", true);
+
+        //Spawning Particle Effects
+        ParticleSystem deathEffect = Instantiate(DeathEffect, transform.position, Quaternion.identity);
+
+        //Destroying Agent and Particle Effect
+        Destroy(_agent.gameObject, 1f);
+        Destroy(deathEffect, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)

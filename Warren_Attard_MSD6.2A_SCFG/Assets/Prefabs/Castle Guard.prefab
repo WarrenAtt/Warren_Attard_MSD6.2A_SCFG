@@ -358,6 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &-8225870175774653846
 NavMeshAgent:
   m_ObjectHideFlags: 0

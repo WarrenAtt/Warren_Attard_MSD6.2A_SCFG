@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 0}
 --- !u!195 &2254854296730430439
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -969,6 +970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &1469459755439314216
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7122,6 +7125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &7618241880194846162
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8686,6 +8691,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &3137394691587275223
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9634,6 +9641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &1879696510032422835
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10215,6 +10224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &697326530875813804
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16332,6 +16343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &1047776280345248455
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -17519,6 +17532,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &1340891743195826220
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -22164,6 +22179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &2557695928384818271
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -22805,6 +22822,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &8699070130351864535
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -23541,6 +23560,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &8615626073368689453
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -23925,6 +23946,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &450157644020955030
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -28686,6 +28709,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &885448070428198130
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -29098,6 +29123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &8951054115961574131
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -29544,6 +29571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8d493252d1544ea86dfb5cc8aa9309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleSystem: {fileID: 2913267871557427127, guid: 03c3d5b22239d4cd0b121dbe936706d0,
+    type: 3}
 --- !u!195 &2228001325567823597
 NavMeshAgent:
   m_ObjectHideFlags: 0

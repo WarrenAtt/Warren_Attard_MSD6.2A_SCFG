@@ -8,8 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public AudioSource BackgroundMusic;
+    public GameObject EasyBtn, NormalBtn, HardBtn;
+    
 
     private GameObject _player;
+    private bool isPaused = false;
+    
 
     private void Awake()
     {
@@ -22,24 +26,42 @@ public class GameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        SelectDifficulty(GameData.Difficuly.Normal);
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
         BackgroundMusic.Play();
-        //SpawnKey();
         _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_player != null && _player.GetComponent<Player>().health <= 0)
+
+        if (_player != null && _player.GetComponent<Player>().health <= 0)
         {
             GameOver();
         }
+
+        if (Input.GetKeyDown(KeyCode.P) && SceneManager.GetActiveScene().name.Contains("Level"))
+        {
+            if (!isPaused)
+            {
+                StartCoroutine(PauseGame());
+            }
+            else
+            {
+                StartCoroutine(ResumeGame());
+            }
+            
+        }
+    }
+
+    public void IncreaseScore(int ammount)
+    {
+        GameData.Score += ammount;
     }
 
     private void SelectDifficulty(GameData.Difficuly difficuly)
@@ -58,15 +80,59 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void EasyGameMode()
+    {
+        SelectDifficulty(GameData.Difficuly.Easy);
+
+        StartGame();
+    }
+
+    public void NormalGameMode()
+    {
+        SelectDifficulty(GameData.Difficuly.Normal);
+
+        StartGame();
+    }
+
+    public void HardGameMode()
+    {
+        SelectDifficulty(GameData.Difficuly.Hard);
+
+        StartGame();
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("Level-01");
-        return; 
+    }
+
+    public IEnumerator ResumeGame()
+    {
+        Time.timeScale = 1;
+        isPaused = false;
+        print("Game Resumed! " + isPaused);
+        yield return new WaitForSeconds(5);
+    }
+
+    private IEnumerator PauseGame()
+    {
+        Time.timeScale = 0;
+        isPaused = true;
+        print("Game Paused! " + isPaused);
+        yield return new WaitForSeconds(5);
+    }
+
+    public void Victory()
+    {
+        SceneManager.LoadScene("Victory", LoadSceneMode.Single);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        return;
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("StartMenu");
+        SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         return;

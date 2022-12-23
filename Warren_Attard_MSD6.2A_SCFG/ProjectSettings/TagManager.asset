@@ -21,6 +21,7 @@ TagManager:
   - Waypoint
   - Bullet
   - Key
+  - PauseMenu
   layers:
   - Default
   - TransparentFX
